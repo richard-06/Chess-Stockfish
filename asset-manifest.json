@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Chess-Stockfish/static/css/main.b0ab0511.css",
+    "main.js": "/Chess-Stockfish/static/js/main.cca58e9b.js",
+    "index.html": "/Chess-Stockfish/index.html",
+    "main.b0ab0511.css.map": "/Chess-Stockfish/static/css/main.b0ab0511.css.map",
+    "main.cca58e9b.js.map": "/Chess-Stockfish/static/js/main.cca58e9b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b0ab0511.css",
+    "static/js/main.cca58e9b.js"
+  ]
+}
