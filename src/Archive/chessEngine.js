@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { createStockfishWorker } from "./utils/stockfishWorker";
+import { createStockfishWorker } from "../utils/stockfishWorker";
 
 const ChessEngine = ({ fen, bestMove, setBestMove }) => {
   const stockfish = useRef(null);

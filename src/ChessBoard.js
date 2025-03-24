@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { createStockfishWorker } from "./utils/stockfishWorker";
 import { parseFEN } from "./functions";
 import { Chess } from "chess.js";
+import { NavBar } from "./Components/NavBar";
+import { ArrowDownOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 const pieceMap = {
   r: "b_r",
@@ -197,67 +199,96 @@ export function ChessBoard() {
   }
 
   return (
-    <>
-      <div>Chess with stockfish</div>
+    <div className="chess">
+      <NavBar />
+      <div className="dropdown">
+        <CaretDownOutlined />
+      </div>
+      <div className="hide-text"></div>
+      <div className="title">
+        Chess with <br />
+        stockfish Chess-Engine
+      </div>
+      <p className="note">
+        This is a base chess game developed with React.js that leverages
+        Stockfish—an open-source chess engine—to calculate the best possible
+        moves. Stockfish employs advanced search algorithms, including
+        alpha-beta pruning and iterative deepening, alongside sophisticated
+        evaluation functions to assess board positions and determine optimal
+        moves. To ensure a smooth user experience, the application runs
+        Stockfish computations within a web worker. This setup offloads
+        intensive chess calculations to a separate thread, keeping the main UI
+        thread free and responsive. As a result, React components can
+        efficiently handle user interactions without performance bottlenecks,
+        ultimately enhancing the overall gameplay experience.
+      </p>
       <div className="board-sep">
-        <div className="board">
-          {board.flat().map((square, index) => {
-            // Determine row and column index for background color alternation
-            const row = Math.floor(index / 8);
-            const col = index % 8;
-            const isDark = (row + col) % 2 === 1;
-            return (
-              <div
-                key={index}
-                onClick={async () => {
-                  if (move) {
-                    if (
-                      moves.map((item) => parseMove(item)).includes(pos[index])
-                    ) {
-                      console.log("can move");
+        <div>
+          <div className="button-list">
+            <Button className="button-board">New Game</Button>
+            <Button className="red-button-board">Resign</Button>
+          </div>
+          <div className="board">
+            {board.flat().map((square, index) => {
+              // Determine row and column index for background color alternation
+              const row = Math.floor(index / 8);
+              const col = index % 8;
+              const isDark = (row + col) % 2 === 1;
+              return (
+                <div
+                  key={index}
+                  onClick={async () => {
+                    if (move) {
+                      if (
+                        moves
+                          .map((item) => parseMove(item))
+                          .includes(pos[index])
+                      ) {
+                        console.log("can move");
 
-                      setMoves([]);
-                      setMove(false);
-                      handleUserMove(select + pos[index]);
-                      setSelect("");
-                    } else {
-                      setSelect(pos[index]);
-                      let val = getMoves(pos[index]);
-                      console.log("tst", val);
-                      if (val.length == 0) {
-                        console.log("ffffff");
+                        setMoves([]);
                         setMove(false);
+                        handleUserMove(select + pos[index]);
                         setSelect("");
+                      } else {
+                        setSelect(pos[index]);
+                        let val = getMoves(pos[index]);
+                        console.log("tst", val);
+                        if (val.length == 0) {
+                          console.log("ffffff");
+                          setMove(false);
+                          setSelect("");
+                        }
+                      }
+                      console.log("moess");
+                      console.log(
+                        moves.map((item) => parseMove(item)),
+                        "ss"
+                      );
+                    } else {
+                      let valid = getMoves(pos[index]);
+                      if (valid.length != 0) {
+                        setMove(true);
+                        setSelect(pos[index]);
                       }
                     }
-                    console.log("moess");
-                    console.log(
-                      moves.map((item) => parseMove(item)),
-                      "ss"
-                    );
-                  } else {
-                    let valid = getMoves(pos[index]);
-                    if (valid.length != 0) {
-                      setMove(true);
-                      setSelect(pos[index]);
-                    }
-                  }
-                }}
-                className={`square ${isDark ? "dark" : ""}`}
-              >
-                {pieceMap[square] ? <Piecer piece={pieceMap[square]} /> : ""}
+                  }}
+                  className={`square ${isDark ? "dark" : ""}`}
+                >
+                  {pieceMap[square] ? <Piecer piece={pieceMap[square]} /> : ""}
 
-                {moves.map((item) => parseMove(item)).includes(pos[index]) ? (
-                  <div className="valid"></div>
-                ) : (
-                  ""
-                )}
-              </div>
-            );
-          })}
+                  {moves.map((item) => parseMove(item)).includes(pos[index]) ? (
+                    <div className="valid"></div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="button-arrange">
-          <Button
+          {/* <Button
             type="primary"
             onClick={() => {
               getMoves("a4");
@@ -282,10 +313,11 @@ export function ChessBoard() {
             }}
           >
             Parser
-          </Button>
+          </Button> */}
+          STATS
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

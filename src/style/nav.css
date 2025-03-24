@@ -1,0 +1,15 @@
+.nav {
+  position: sticky;
+  top: 0;
+  background-color: black;
+  color: white;
+  padding: 8px;
+  padding-left: 15px;
+  font-family: "Geist Mono", serif;
+  display: flex;
+  z-index: 15;
+}
+
+.nav-title {
+  flex: 1;
+}

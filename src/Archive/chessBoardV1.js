@@ -1,6 +1,6 @@
 import { Chess } from "chess.js";
 import React, { useEffect, useRef, useState } from "react";
-import { createStockfishWorker } from "./utils/stockfishWorker";
+import { createStockfishWorker } from "../utils/stockfishWorker";
 
 import { Button } from "antd";
 
